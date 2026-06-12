@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FallSync</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f7fc;
+padding:20px;
+}
+
+.header{
+text-align:center;
+margin-bottom:25px;
+}
+
+.header h1{
+color:#1565c0;
+font-size:32px;
+}
+
+.header p{
+color:#555;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:15px;
+margin-bottom:15px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.status{
+text-align:center;
+font-size:22px;
+font-weight:bold;
+padding:15px;
+border-radius:10px;
+background:#e8f5e9;
+color:#2e7d32;
+}
+
+.value{
+font-size:32px;
+font-weight:bold;
+margin-top:10px;
+}
+
+.label{
+color:#666;
+font-size:14px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+}
+
+.alert{
+background:#d32f2f;
+color:white;
+}
+
+.call{
+background:#1565c0;
+color:white;
+}
+
+.history{
+list-style:none;
+}
+
+.history li{
+padding:10px 0;
+border-bottom:1px solid #ddd;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>FallSync</h1>
+<p>Pre-Collapse Detection & Alert System</p>
+</div>
+
+<div class="card">
+<div class="status" id="status">
+SAFE
+</div>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="label">Heart Rate</div>
+<div class="value" id="heartRate">78 BPM</div>
+</div>
+
+<div class="card">
+<div class="label">Movement</div>
+<div class="value" id="movement">Normal</div>
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="label">Fall Status</div>
+<div class="value" id="fall">No Fall</div>
+</div>
+
+<div class="card">
+<div class="label">Alert Level</div>
+<div class="value" id="alertLevel">Low</div>
+</div>
+
+</div>
+
+<div class="card">
+<h3>Emergency Actions</h3>
+
+<button class="btn alert" onclick="sendAlert()">
+Send Emergency Alert
+</button>
+
+<button class="btn call">
+Call Supervisor
+</button>
+</div>
+
+<div class="card">
+<h3>Recent Events</h3>
+
+<ul class="history" id="history">
+<li>09:15 AM - Monitoring Started</li>
+<li>09:30 AM - Heart Rate Normal</li>
+<li>10:00 AM - Worker Active</li>
+</ul>
+</div>
+
+<script>
+
+function sendAlert(){
+document.getElementById("status").innerHTML="CRITICAL";
+document.getElementById("status").style.background="#ffebee";
+document.getElementById("status").style.color="#c62828";
+
+document.getElementById("fall").innerHTML="Fall Detected";
+document.getElementById("alertLevel").innerHTML="High";
+
+let item=document.createElement("li");
+item.innerHTML=new Date().toLocaleTimeString()+" - Emergency Alert Sent";
+document.getElementById("history").prepend(item);
+}
+
+setInterval(function(){
+
+let hr=Math.floor(Math.random()*30)+70;
+
+document.getElementById("heartRate").innerHTML=
+hr+" BPM";
+
+if(hr>95){
+document.getElementById("alertLevel").innerHTML="Medium";
+}
+
+},3000);
+
+</script>
+
+</body>
+</html>
